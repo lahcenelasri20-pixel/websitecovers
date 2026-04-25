@@ -28,34 +28,9 @@ if (cursor && window.matchMedia('(pointer: fine)').matches) {
     cursor.style.display = 'none';
 }
 
-// Mobile Navigation
+// Mobile Navigation (Removed for desktop version)
 const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
-const closeMobileNav = document.getElementById('close-mobile-nav');
 const mobileCartBtn = document.getElementById('mobile-cart-btn');
-
-if (mobileMenuBtn && mobileNavOverlay) {
-    mobileMenuBtn.addEventListener('click', () => {
-        mobileNavOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-}
-
-if (closeMobileNav && mobileNavOverlay) {
-    closeMobileNav.addEventListener('click', () => {
-        mobileNavOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-}
-
-if (mobileNavOverlay) {
-    document.querySelectorAll('.mobile-nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileNavOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    });
-}
 
 if (mobileCartBtn) {
     mobileCartBtn.addEventListener('click', (e) => {

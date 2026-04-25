@@ -334,6 +334,11 @@ nav .container .logo {
 
 .desktop-nav-links {
   display: flex;
+  gap: 3rem;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-links li {
@@ -1198,13 +1203,12 @@ footer {
     padding: 120px 0 60px;
   }
 
-  /* Hide mobile elements on tablet+ */
-  .mobile-menu-btn,
-  .mobile-logo,
-  .mobile-cart-btn,
-  .mobile-nav-overlay {
-    display: none !important;
-  }
+   /* Hide mobile elements on tablet+ */
+   .mobile-menu-btn,
+   .mobile-logo,
+   .mobile-cart-btn {
+     display: none !important;
+   }
 
   /* Show desktop nav on tablet+ */
   nav .container {
@@ -1287,13 +1291,13 @@ footer {
     display: none !important;
   }
 
-  .mobile-nav-overlay {
-    display: none;
+
+
+  .mobile-cart-btn {
+    display: flex !important;
   }
 
-  .mobile-nav-overlay.active {
-    display: flex;
-  }
+
 
   .close-mobile-nav {
     position: absolute;
