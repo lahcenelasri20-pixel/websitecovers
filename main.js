@@ -28,6 +28,42 @@ if (cursor && window.matchMedia('(pointer: fine)').matches) {
     cursor.style.display = 'none';
 }
 
+// Mobile Navigation
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+const closeMobileNav = document.getElementById('close-mobile-nav');
+const mobileCartBtn = document.getElementById('mobile-cart-btn');
+
+if (mobileMenuBtn && mobileNavOverlay) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileNavOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+}
+
+if (closeMobileNav && mobileNavOverlay) {
+    closeMobileNav.addEventListener('click', () => {
+        mobileNavOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+}
+
+if (mobileNavOverlay) {
+    document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileNavOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+}
+
+if (mobileCartBtn) {
+    mobileCartBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleCart(true);
+    });
+}
+
 // Hero Gallery Logic
 const mainImage = document.getElementById('main-hero-image');
 const heroTitle = document.getElementById('hero-title');
@@ -310,7 +346,16 @@ const cartDrawer = document.getElementById('cart-drawer');
 const cartOverlay = document.getElementById('cart-overlay');
 const cartItemsContainer = document.getElementById('cart-items');
 const totalCountElement = document.getElementById('total-count');
-const cartCountElement = document.getElementById('cart-count');
+const cartCountElements = document.querySelectorAll('.cart-count');
+
+function updateCartCounts(count) {
+    cartCountElements.forEach(el => {
+        el.textContent = `(${count})`;
+    });
+    if (totalCountElement) {
+        totalCountElement.textContent = count;
+    }
+}
 
 function toggleCart(show = true) {
     if (!cartDrawer || !cartOverlay) return;
@@ -330,7 +375,7 @@ function toggleCart(show = true) {
 }
 
 function renderCart() {
-    if (!cartItemsContainer || !totalCountElement || !cartCountElement) return;
+    if (!cartItemsContainer || !totalCountElement) return;
 
     if (cartItems.length === 0) {
         cartItemsContainer.innerHTML = '<div class="empty-cart-msg">Your collection is empty.</div>';
@@ -349,8 +394,7 @@ function renderCart() {
         `).join('');
     }
 
-    totalCountElement.textContent = cartItems.length;
-    cartCountElement.textContent = `(${cartItems.length})`;
+    updateCartCounts(cartItems.length);
 }
 
 window.removeFromCart = function(index) {
@@ -553,34 +597,6 @@ if (backButton) {
 }
 
 console.log('ELASRI THRone Portfolio Loaded');
-
-
-// Mobile Navigation
-const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
-const closeMobileNav = document.getElementById('close-mobile-nav');
-
-if (mobileMenuBtn && mobileNavOverlay) {
-    mobileMenuBtn.addEventListener('click', () => {
-        mobileNavOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-}
-
-if (closeMobileNav && mobileNavOverlay) {
-    closeMobileNav.addEventListener('click', () => {
-        mobileNavOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-}
-
-// Close mobile nav when clicking on a link
-document.querySelectorAll('.mobile-nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        mobileNavOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-});
 
 
 function renderGallery() {
