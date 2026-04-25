@@ -2,7 +2,7 @@
 const cursor = document.querySelector('.custom-cursor');
 const cursorText = document.querySelector('.cursor-text');
 
-if (cursor) {
+if (cursor && window.matchMedia('(pointer: fine)').matches) {
     document.addEventListener('mousemove', (e) => {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
@@ -24,6 +24,8 @@ if (cursor) {
             cursor.classList.remove('hovering');
         });
     });
+} else if (cursor) {
+    cursor.style.display = 'none';
 }
 
 // Hero Gallery Logic
@@ -490,9 +492,6 @@ window.openCollection = function(id) {
         });
         btn.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
     });
-
-    updateCursorBehavior();
-
     // Next Collection Logic
     const collectionIds = Object.keys(collectionData);
     const currentIndex = collectionIds.indexOf(id);
@@ -552,9 +551,6 @@ window.closeCollection = function() {
 if (backButton) {
     backButton.addEventListener('click', closeCollection);
 }
-
-// Initial Cursor setup
-updateCursorBehavior();
 
 console.log('Evelyn Thorne Portfolio Loaded');
 

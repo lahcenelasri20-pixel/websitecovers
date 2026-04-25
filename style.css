@@ -1147,6 +1147,16 @@ footer {
     gap: 3rem;
   }
 
+  .cv-container,
+  .about-details {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .contact-container h2 {
+    font-size: 2.5rem;
+  }
+
   .detail-header {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -1175,8 +1185,22 @@ footer {
   }
 
   .nav-links {
-    display: none;
-    /* In a real app, you'd add a hamburger menu, but for now we keep it minimal */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(250, 249, 246, 0.98);
+    backdrop-filter: blur(15px);
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-evenly;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    z-index: 2000;
+    margin: 0;
+  }
+  
+  body {
+    padding-bottom: 60px; /* Space for bottom nav */
   }
 
   .nav-cart {
