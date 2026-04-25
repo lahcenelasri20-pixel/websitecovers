@@ -13,7 +13,7 @@
     </div>
     <nav>
         <div class="container">
-            <div class="logo">Evelyn Thorne</div>
+            <div class="logo"><span id="dynamic-name">Evelyn Thorne</span></div>
             <ul class="nav-links">
                 <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#collections">Collections</a></li>
@@ -49,8 +49,8 @@
                     <div class="thumbnail-item" data-src="/Paints/Fine-Art-Couple-at-the-Spanish-Square-in-Seville-Original-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg" data-title="Couple at the Spanish Square" data-details="Original Oil Painting on Canvas">
                         <img src="/Paints/Fine-Art-Couple-at-the-Spanish-Square-in-Seville-Original-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg" alt="Thumbnail 2">
                     </div>
-                    <div class="thumbnail-item" data-src="/Paints/Fine-Art-Kosovo-Maiden-Original-Figurative-Oil-Painting-on-Canvas-after-Uros-Predic-by-artist-Darko-Topalski.jpg" data-title="Kosovo Maiden" data-details="Original Figurative Oil Painting">
-                        <img src="/Paints/Fine-Art-Kosovo-Maiden-Original-Figurative-Oil-Painting-on-Canvas-after-Uros-Predic-by-artist-Darko-Topalski.jpg" alt="Thumbnail 3">
+                    <div class="thumbnail-item" data-src="/hero/Radgost-Rtanj-and-Lake-Original-landscape-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg" data-title="Radgost Rtanj and Lake" data-details="Original landscape Oil Painting on Canvas">
+                        <img src="/hero/Radgost-Rtanj-and-Lake-Original-landscape-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg" alt="Thumbnail 3">
                     </div>
                 </div>
             </div>
@@ -60,28 +60,28 @@
             <div class="container">
                 <h2 class="section-title">Collections</h2>
                 <div class="collections-grid">
-                    <div class="collection-card fade-in" data-collection="figurative">
+                    <div class="collection-card fade-in" data-collection="figurative" onclick="openCollection('figurative')" style="cursor: pointer;">
                         <img src="/Paints/Fine-Art-Kosovo-Maiden-Original-Figurative-Oil-Painting-on-Canvas-after-Uros-Predic-by-artist-Darko-Topalski.jpg" alt="Kosovo Maiden by Darko Topalski">
                         <div class="collection-info">
                             <h3>Figurative</h3>
                             <p>Soul and Tradition</p>
                         </div>
                     </div>
-                    <div class="collection-card fade-in" data-collection="nature">
+                    <div class="collection-card fade-in" data-collection="nature" onclick="openCollection('nature')" style="cursor: pointer;">
                         <img src="/hero/Radgost-Rtanj-and-Lake-Original-landscape-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg" alt="Nature Collection">
                         <div class="collection-info">
                             <h3>Nature</h3>
                             <p>Topography of Light</p>
                         </div>
                     </div>
-                    <div class="collection-card fade-in" data-collection="portraits">
+                    <div class="collection-card fade-in" data-collection="portraits" onclick="openCollection('portraits')" style="cursor: pointer;">
                         <img src="/Paints/Fine-Art-Couple-at-the-Spanish-Square-in-Seville-Original-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg" alt="Portraits Collection">
                         <div class="collection-info">
                             <h3>Portraits</h3>
                             <p>Soul and Movement</p>
                         </div>
                     </div>
-                    <div class="collection-card fade-in" data-collection="limited-editions">
+                    <div class="collection-card fade-in" data-collection="limited-editions" onclick="openCollection('limited-editions')" style="cursor: pointer;">
                         <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&q=80&w=1000" alt="Limited Editions">
                         <div class="collection-info">
                             <h3>Limited Editions</h3>
@@ -107,6 +107,17 @@
                 <div id="collection-artworks-grid" class="artworks-grid">
                     <!-- Artworks will be injected here -->
                 </div>
+                
+                <!-- Next Collection Navigation -->
+                <div id="next-collection-wrapper" class="next-collection-wrapper" style="display: none;">
+                    <button id="next-collection-btn" class="next-collection-btn">
+                        <span class="next-label">Next Collection</span>
+                        <h3 id="next-collection-name">Collection Name</h3>
+                        <div class="next-arrow">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                        </div>
+                    </button>
+                </div>
             </div>
         </section>
 
@@ -118,7 +129,7 @@
                     </div>
                     <div class="about-text fade-in">
                         <h4>ARTIST</h4>
-                        <h2>Evelyn Thorne</h2>
+                        <h2 id="dynamic-footer-name">Evelyn Thorne</h2>
                         <p>Evelyn Thorne's paintings are an ongoing dialogue with the light and topography of the American Southwest. Based in the high deserts of New Mexico, she translates the vast, silent landscapes into textured, minimalist compositions.</p>
                         <p>Her work explores the intersection of static memory and fluid movement, balancing architectural structural integrity with a deliberate, geometric calm.</p>
                         <p>Thorne's work is held in prestigious private and museum collections across four continents, continuing a legacy of contemporary Southwestern abstraction.</p>
@@ -180,21 +191,22 @@
 
     <footer>
         <div class="container">
-            <div class="footer-logo">EVELYN THORNE</div>
+            <div class="footer-logo" id="dynamic-footer-name">EVELYN THORNE</div>
             <div class="socials">
-                <a href="#" aria-label="Instagram">
+                <a href="#" id="dynamic-ig" target="_blank" aria-label="Instagram">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                 </a>
-                <a href="#" aria-label="Facebook">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-                </a>
-                <a href="#" aria-label="Pinterest">
+                <a href="#" id="dynamic-pin" target="_blank" aria-label="Pinterest">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="2" x2="8" y2="22"></line><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </a>
+                <a href="#" id="dynamic-li" target="_blank" aria-label="LinkedIn">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                 </a>
             </div>
             <div class="copyright">© Evelyn Thorne Studio 2026</div>
         </div>
     </footer>
+
 
     <!-- Cart Drawer -->
     <div id="cart-drawer" class="cart-drawer">

@@ -76,8 +76,9 @@ document.querySelectorAll('.fade-in').forEach(element => {
 // Smooth scroll for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const href = this.getAttribute('href');
+        if (href === '#' || href === '#admin') return;
+        const target = document.querySelector(href);
         if (target) {
             window.scrollTo({
                 top: target.offsetTop - 80,
@@ -235,8 +236,8 @@ function updateCursorBehavior() {
     });
 }
 
-// Collection Data
-const collectionData = {
+// Collection State Management
+const DEFAULT_COLLECTIONS = {
     figurative: {
         name: "Figurative",
         description: "Exploring the human form through a lens of classical tradition and contemporary soul. This collection focuses on the emotional depth and physical presence of the subject.",
@@ -271,13 +272,36 @@ const collectionData = {
     }
 };
 
-// Collection Interaction
+const DEFAULT_SETTINGS = {
+    artistName: "Evelyn Thorne",
+    artistTitle: "Fine Art & Creative Direction",
+    aboutBio: "Based in Paris, I specialize in oil-on-canvas and mixed media, blending traditional techniques with contemporary aesthetics to capture the ephemeral beauty of the human experience.",
+    socials: {
+        instagram: "https://instagram.com",
+        pinterest: "https://pinterest.com",
+        linkedin: "https://linkedin.com"
+    },
+    hero: [
+        { src: "/hero/Radgost-Rtanj-and-Lake-Original-landscape-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg", title: "Radgost Rtanj and Lake", details: "Original landscape Oil Painting on Canvas" },
+        { src: "/Paints/Fine-Art-Couple-at-the-Spanish-Square-in-Seville-Original-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg", title: "Couple at the Spanish Square", details: "Original Oil Painting on Canvas" },
+        { src: "/hero/Radgost-Rtanj-and-Lake-Original-landscape-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg", title: "Radgost Rtanj and Lake", details: "Original landscape Oil Painting on Canvas" }
+    ]
+};
+
+let collectionData = DEFAULT_COLLECTIONS;
+let siteSettings = DEFAULT_SETTINGS;
+
+// UI Elements
 const collectionDetailView = document.getElementById('collection-detail');
 const currentCollectionName = document.getElementById('current-collection-name');
 const currentCollectionDescription = document.getElementById('current-collection-description');
 const collectionArtworksGrid = document.getElementById('collection-artworks-grid');
 const backButton = document.getElementById('back-to-collections');
-const collectionCards = document.querySelectorAll('.collection-card');
+const collectionsGrid = document.getElementById('collections-grid');
+
+// Old renderGallery removed to avoid duplicates
+
+// Initial Render moved to initAll
 
 let cartItems = [];
 const cartDrawer = document.getElementById('cart-drawer');
@@ -420,7 +444,7 @@ function flyToCart(imgElement, itemData) {
     });
 }
 
-function openCollection(id) {
+window.openCollection = function(id) {
     const data = collectionData[id];
     if (!data) return;
 
@@ -469,24 +493,61 @@ function openCollection(id) {
 
     updateCursorBehavior();
 
+    // Next Collection Logic
+    const collectionIds = Object.keys(collectionData);
+    const currentIndex = collectionIds.indexOf(id);
+    const nextIndex = (currentIndex + 1) % collectionIds.length;
+    const nextId = collectionIds[nextIndex];
+    const nextData = collectionData[nextId];
+
+    const nextWrapper = document.getElementById('next-collection-wrapper');
+    const nextName = document.getElementById('next-collection-name');
+    const nextBtn = document.getElementById('next-collection-btn');
+
+    if (nextWrapper && nextName && nextBtn) {
+        nextWrapper.style.display = 'block';
+        nextName.textContent = nextData.name;
+        
+        // Remove old event listeners
+        const newBtn = nextBtn.cloneNode(true);
+        nextBtn.parentNode.replaceChild(newBtn, nextBtn);
+        
+        newBtn.addEventListener('click', () => {
+            if (collectionDetailView) {
+                // Scroll to top smoothly
+                collectionDetailView.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Fade out content briefly
+                const container = collectionDetailView.querySelector('.container');
+                if (container) {
+                    container.style.opacity = '0';
+                    container.style.transition = 'opacity 0.3s ease';
+                    
+                    setTimeout(() => {
+                        openCollection(nextId);
+                        container.style.opacity = '1';
+                    }, 300);
+                } else {
+                    openCollection(nextId);
+                }
+            }
+        });
+    }
+
     if (collectionDetailView) {
         collectionDetailView.style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
 }
 
-function closeCollection() {
+window.closeCollection = function() {
     if (collectionDetailView) {
         collectionDetailView.style.display = 'none';
         document.body.style.overflow = '';
     }
 }
 
-collectionCards.forEach(card => {
-    card.addEventListener('click', () => {
-        openCollection(card.dataset.collection);
-    });
-});
+// Click listeners are now handled via onclick in the dynamic HTML
 
 if (backButton) {
     backButton.addEventListener('click', closeCollection);
@@ -496,3 +557,94 @@ if (backButton) {
 updateCursorBehavior();
 
 console.log('Evelyn Thorne Portfolio Loaded');
+
+
+function renderGallery() {
+    if (!collectionsGrid) return;
+    
+    collectionsGrid.innerHTML = Object.entries(collectionData).map(([id, data]) => {
+        const coverImage = data.coverImg || (data.artworks && data.artworks.length > 0 ? data.artworks[0].src : 'https://via.placeholder.com/800x1000?text=No+Cover');
+        return `
+        <div class="collection-card fade-in" onclick="openCollection('${id}')">
+            <div class="card-image-container">
+                <img src="${coverImage}" alt="${data.name}">
+                <div class="card-overlay">
+                    <span class="explore-text">EXPLORE</span>
+                </div>
+            </div>
+            <div class="card-info">
+                <h3>${data.name}</h3>
+                <p>${data.artworks.length} Piece${data.artworks.length !== 1 ? 's' : ''}</p>
+            </div>
+        </div>
+        `;
+    }).join('');
+
+    // Re-observe new elements
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}
+
+
+
+function applySiteSettings() {
+    // Apply Name
+    const nameElements = ['dynamic-name', 'dynamic-footer-name', 'dynamic-about-name', 'admin-sidebar-name'];
+    nameElements.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = siteSettings.artistName;
+    });
+    
+    document.title = `${siteSettings.artistName} | Portfolio`;
+    
+    // Apply Title & Bio
+    const titleEl = document.getElementById('dynamic-about-title');
+    if (titleEl) titleEl.textContent = siteSettings.artistTitle;
+    
+    const bioEl = document.getElementById('dynamic-about-bio');
+    if (bioEl) bioEl.innerHTML = `<p>${siteSettings.aboutBio}</p>`;
+    
+    // Apply Socials
+    const igEl = document.getElementById('dynamic-ig');
+    if (igEl) igEl.href = siteSettings.socials.instagram;
+    const pinEl = document.getElementById('dynamic-pin');
+    if (pinEl) pinEl.href = siteSettings.socials.pinterest;
+    const liEl = document.getElementById('dynamic-li');
+    if (liEl) liEl.href = siteSettings.socials.linkedin;
+    
+    // Apply Hero
+    // This updates the thumbnail data-attrs and initial state
+    const thumbs = document.querySelectorAll('.thumbnail-item');
+    thumbs.forEach((thumb, index) => {
+        if (siteSettings.hero[index]) {
+            const h = siteSettings.hero[index];
+            thumb.dataset.src = h.src;
+            thumb.dataset.title = h.title;
+            thumb.dataset.details = h.details;
+            const img = thumb.querySelector('img');
+            if (img) img.src = h.src;
+        }
+    });
+    
+    // Update main hero if it hasn't been interacted with
+    const mainImg = document.getElementById('main-hero-image');
+    if (mainImg) {
+        mainImg.src = siteSettings.hero[0].src;
+        const ht = document.getElementById('dynamic-hero-title');
+        if (ht) ht.textContent = siteSettings.hero[0].title;
+        const hd = document.getElementById('dynamic-hero-details');
+        if (hd) hd.textContent = siteSettings.hero[0].details;
+    }
+}
+
+
+// Robust Initialization
+function initAll() {
+    applySiteSettings();
+    renderGallery();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAll);
+} else {
+    initAll();
+}
