@@ -275,7 +275,7 @@ const DEFAULT_COLLECTIONS = {
 };
 
 const DEFAULT_SETTINGS = {
-    artistName: "Evelyn Thorne",
+    artistName: "ELASRI THRone",
     artistTitle: "Fine Art & Creative Direction",
     aboutBio: "Based in Paris, I specialize in oil-on-canvas and mixed media, blending traditional techniques with contemporary aesthetics to capture the ephemeral beauty of the human experience.",
     socials: {
@@ -375,7 +375,7 @@ function openWhatsApp() {
     if (cartItems.length === 0) return;
     
     const artistPhone = "1234567890"; // Placeholder
-    let message = "Hello Evelyn Thorne, I am interested in the following pieces from your collection:\n\n";
+    let message = "Hello ELASRI THRone, I am interested in the following pieces from your collection:\n\n";
     cartItems.forEach((item, i) => {
         message += `${i+1}. ${item.title} (${item.details})\n`;
     });
@@ -552,7 +552,7 @@ if (backButton) {
     backButton.addEventListener('click', closeCollection);
 }
 
-console.log('Evelyn Thorne Portfolio Loaded');
+console.log('ELASRI THRone Portfolio Loaded');
 
 
 function renderGallery() {
