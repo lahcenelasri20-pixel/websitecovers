@@ -307,6 +307,18 @@ nav .container {
   text-transform: uppercase;
 }
 
+.mobile-menu-btn {
+  display: none;
+}
+
+.mobile-logo {
+  display: none;
+}
+
+.mobile-cart-btn {
+  display: none;
+}
+
 .nav-links {
   display: flex;
   gap: 3rem;
@@ -343,13 +355,13 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 100px 0;
+  padding: 180px 0;
 }
 
 /* Hero Section */
 .hero {
   z-index: 1;
-  padding: 100px 0;
+  padding: 180px 0 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1177,46 +1189,169 @@ footer {
   .collection-detail-view {
     padding: 120px 0 60px;
   }
+
+  /* Hide mobile elements on tablet+ */
+  .mobile-menu-btn,
+  .mobile-logo,
+  .mobile-cart-btn,
+  .mobile-nav-overlay {
+    display: none !important;
+  }
+
+  /* Show desktop nav on tablet+ */
+  nav .container {
+    display: flex !important;
+  }
+
+  .desktop-nav-links {
+    display: flex !important;
+  }
 }
 
 @media (max-width: 480px) {
-  .hero-content h1 {
-    font-size: 2.5rem;
+  /* Section spacing on mobile */
+  section {
+    padding: 120px 0 80px;
+    min-height: auto;
   }
 
-  .nav-links {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(250, 249, 246, 0.98);
-    backdrop-filter: blur(15px);
-    padding: 1rem 0;
+  .hero {
+    padding: 120px 0 80px;
+  }
+
+  .hero-layout {
     display: flex;
-    justify-content: space-evenly;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-    z-index: 2000;
-    margin: 0;
-  }
-  
-  body {
-    padding-bottom: 60px; /* Space for bottom nav */
+    flex-direction: column;
+    gap: 2rem;
   }
 
-  .nav-cart {
-    margin-left: auto;
+  .hero-sidebar {
+    flex-direction: row;
+    justify-content: center;
+    padding-right: 0;
+    gap: 0.5rem;
   }
 
-  .section-title {
+  .thumbnail-item {
+    width: 60px;
+  }
+
+  .hero-image-wrapper {
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-image-wrapper img {
+    max-height: 50vh;
+  }
+
+  /* Mobile Navigation Header */
+  nav .container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+
+  .mobile-logo {
+    display: block !important;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .mobile-cart-btn {
+    display: flex !important;
+  }
+
+  .desktop-nav-links {
+    display: none !important;
+  }
+
+  .mobile-nav-overlay {
+    display: none;
+  }
+
+  .mobile-nav-overlay.active {
+    display: flex;
+  }
+
+  .close-mobile-nav {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0.5;
+    padding: 0.5rem;
+  }
+
+  .mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+    text-align: center;
+  }
+
+  .mobile-nav-links a {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.7;
+    transition: var(--transition);
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  .mobile-nav-links a:hover {
+    opacity: 1;
+  }
+
+  .hero-content h1 {
     font-size: 2rem;
   }
 
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .collections-grid {
+    gap: 3rem;
+  }
+
+  .about-content {
+    gap: 2rem;
+  }
+
+  .cv-container {
+    gap: 3rem;
+  }
+
   .detail-header h2 {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .artwork-grid {
     grid-template-columns: 1fr;
+  }
+
+  .footer-logo {
+    font-size: 1.8rem;
+  }
+
+  .socials {
+    gap: 2rem;
   }
 }
 

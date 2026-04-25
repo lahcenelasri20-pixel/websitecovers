@@ -13,8 +13,34 @@
     </div>
     <nav>
         <div class="container">
-            <div class="logo"><span id="dynamic-name">ELASRI THRone</span></div>
-            <ul class="nav-links">
+            <div class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </div>
+            <div class="logo mobile-logo"><span id="dynamic-name">ELASRI THRone</span></div>
+            <button class="mobile-cart-btn nav-cart" aria-label="Cart">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+                <span id="cart-count" class="cart-count">(0)</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay">
+        <button class="close-mobile-nav" id="close-mobile-nav" aria-label="Close Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <ul class="mobile-nav-links">
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#collections">Collections</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <ul class="nav-links desktop-nav-links">
                 <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#collections">Collections</a></li>
                 <li><a href="#about">About</a></li>
@@ -28,29 +54,6 @@
             </ul>
         </div>
     </nav>
-
-    <main>
-        <section class="hero">
-            <div class="hero-layout container">
-                <div class="hero-main-display">
-                    <div class="hero-image-wrapper">
-                        <img id="main-hero-image" src="/hero/Radgost-Rtanj-and-Lake-Original-landscape-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg" alt="Radgost Rtanj and Lake by Darko Topalski">
-                    </div>
-                    <div class="artwork-caption">
-                        <span class="title" id="hero-title">Radgost Rtanj and Lake</span>
-                        <span class="details" id="hero-details">Original landscape Oil Painting on Canvas</span>
-                    </div>
-                </div>
-                
-                <div class="hero-sidebar">
-                    <div class="thumbnail-item active" data-src="/hero/Radgost-Rtanj-and-Lake-Original-landscape-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg" data-title="Radgost Rtanj and Lake" data-details="Original landscape Oil Painting on Canvas">
-                        <img src="/hero/Radgost-Rtanj-and-Lake-Original-landscape-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg" alt="Thumbnail 1">
-                    </div>
-                    <div class="thumbnail-item" data-src="/Paints/Fine-Art-Couple-at-the-Spanish-Square-in-Seville-Original-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg" data-title="Couple at the Spanish Square" data-details="Original Oil Painting on Canvas">
-                        <img src="/Paints/Fine-Art-Couple-at-the-Spanish-Square-in-Seville-Original-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg" alt="Thumbnail 2">
-                    </div>
-                    <div class="thumbnail-item" data-src="/hero/Radgost-Rtanj-and-Lake-Original-landscape-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg" data-title="Radgost Rtanj and Lake" data-details="Original landscape Oil Painting on Canvas">
-                        <img src="/hero/Radgost-Rtanj-and-Lake-Original-landscape-Oil-Painting-on-Canvas-by-artist-Darko-Topalski.jpg" alt="Thumbnail 3">
                     </div>
                 </div>
             </div>

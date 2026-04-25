@@ -555,6 +555,34 @@ if (backButton) {
 console.log('ELASRI THRone Portfolio Loaded');
 
 
+// Mobile Navigation
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+const closeMobileNav = document.getElementById('close-mobile-nav');
+
+if (mobileMenuBtn && mobileNavOverlay) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileNavOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+}
+
+if (closeMobileNav && mobileNavOverlay) {
+    closeMobileNav.addEventListener('click', () => {
+        mobileNavOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+}
+
+// Close mobile nav when clicking on a link
+document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileNavOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+});
+
+
 function renderGallery() {
     if (!collectionsGrid) return;
     
